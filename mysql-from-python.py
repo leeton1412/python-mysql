@@ -15,8 +15,9 @@ connection = pymysql.connect(host='localhost',
 try:
     # Run a query
     with connection.cursor() as cursor:
-        cursor.execute("""CREATE TABLE IF NOT EXISTS
-                        Friends(name char(20), age int, DOB datetime); """)
+        row = ("Bill", 33, "1987-03-04 23:04:56")
+        cursor.execute("INSERT INTO Friends VALUES (%s, %s, %s );", row)
+        connection.commit()
 finally:
     # Close the connection, regardless of whether or not the above was successful
     connection.close()
